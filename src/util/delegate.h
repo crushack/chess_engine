@@ -2,6 +2,7 @@
 #ifndef _DELEGATE_H__
 #define _DELEGATE_H__
 
+#include <iostream>
 #include <typeinfo>
 #include <functional>
 #include <vector>
@@ -118,12 +119,16 @@ public:
 
 	SyncEventListener() = default;
 
+	virtual ~SyncEventListener() {
+
+	}
+
 	/**
 	 * @param1 -> a delegate which needs to be registered to the listener
 	 *
 	 **/
 
-	void add( delegate d ) {
+	void add( delegate const & d ) {
 		if ( ! contains(d) ) {
 			v.push_back(d);
 		}
@@ -134,7 +139,7 @@ public:
 	 *
 	 **/
 
-	void remove( delegate d ) {
+	void remove( delegate const & d ) {
 		for ( auto it = v.begin(); it != v.end(); ++ it ) 
 			if ( (*it) == d )
 			{
@@ -148,11 +153,21 @@ public:
 	 *
 	 **/
 
-	bool contains( delegate d ) const {
+	bool contains( delegate const & d ) const {
+
 		for ( auto it = v.begin(); it != v.end(); ++ it ) 
 			if ( (*it) == d )
 				return true;
 		return false;
+	}
+
+	/**
+	 * size() - method returns the number of Delegates registered to listener
+	 *
+	 **/
+
+	int size() const {
+		return v.size();
 	}
 
 	/**

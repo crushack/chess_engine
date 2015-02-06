@@ -5,6 +5,7 @@ EXEC = run
 SOURCES = $(wildcard **/*.o)
 DIRECTORIES = $(sort $(dir $(wildcard */)))
 OBJECTS = $(SOURCES:.cpp=.o)
+HEADERS = $(wildcard **/*.h)
 
 $(EXEC): directies chess
 
@@ -12,7 +13,7 @@ directies:
 	@$(foreach dir, $(DIRECTORIES), make -C $(dir);)
 
 # Main target
-chess: $(SOURCES) Main.cpp
+chess: $(SOURCES) $(HEADERS) Main.cpp
 	$(CC) $(CPPFLAGS) $^ -o $@
 
 %.o: %.cpp
